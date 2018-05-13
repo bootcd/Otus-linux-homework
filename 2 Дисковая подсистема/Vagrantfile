@@ -78,18 +78,19 @@ Vagrant.configure("2") do |config|
 			  vb.customize ['storageattach', :id,  '--storagectl', 'SCSI', '--port', dconf[:port], '--device', 0, '--type', 'hdd', '--medium', dconf[:dfile]]
 
 		  end
-		box.vm.provision "shell", inline: <<-SHELL
+
+
+			end
+			box.vm.provision "shell", inline: <<-SHELL
 			mkdir -p ~root/.ssh
 			cp ~vagrant/.ssh/auth* ~root/.ssh
 			yum install -y expect  mdadm smartmontools hdparm gdisk
-		SHELL
-
-		box.vm.provision "shell" do |shell2|
+			SHELL
+			
+			box.vm.provision "shell" do |shell2|
 			shell2.path = "raidbuilder.sh"
 				
 				end
-
-			end
 		end
 	end
 end
