@@ -17,10 +17,6 @@
 - залоггировать работу можно с помощью утилиты screen
 ```
 
-
-
-
-
 ### уменьшить том под / до 8G
 
 #### 1.Загружаемся с установочного диска в режиме rescue
@@ -43,7 +39,7 @@
 #### 10.Монтируем корень обратно в новый том
  `mount /dev/VolGroup00/LogVol00 /mnt/sysimage`
 #### 11.Монтируем /buroot/buroot.img через loop в заранее подготовленный каталог /burootimg
- ```mkdir /burootimg\n
+ ```mkdir /burootimg
  mount -o loop /buroot/buroot.img /burootimg
  ```
 #### 12.Копируем содержимое образа в каталог /mnt/sysimage с сохранением прав
@@ -55,7 +51,7 @@
 mkfs.xfs /dev/VolGroup00/lv_home
 ```
 
-#### выделить том под /var
+## выделить том под /var
  ```lvcreate -L 1G -n lv_var /dev/VolGroup00
 mkfs.xfs /dev/VolGroup00/lv_var
 ```
