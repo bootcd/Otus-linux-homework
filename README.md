@@ -20,7 +20,7 @@
 #### 10.Монтируем корень обратно в новый том
  `mount /dev/VolGroup00/LogVol00 /mnt/sysimage`
 #### 11.Монтируем /buroot/buroot.img через loop в заранее подготовленный каталог /burootimg
- `mkdir /burootimg`\n
+ `mkdir /burootimg\n'
  `mount -o loop /buroot/buroot.img /burootimg`
 #### 12.Копируем содержимое образа в каталог /mnt/sysimage с сохранением прав
  `cp -a -R /burootimg/ /mnt/sysimage`
