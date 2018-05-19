@@ -1,4 +1,5 @@
-```Домашнее задание
+```
+Домашнее задание
 Работа с LVM
 на имеющемся образе 
 /dev/mapper/VolGroup00-LogVol00 38G 738M 37G 2% /
@@ -39,7 +40,8 @@
 #### 10.Монтируем корень обратно в новый том
  `mount /dev/VolGroup00/LogVol00 /mnt/sysimage`
 #### 11.Монтируем /buroot/buroot.img через loop в заранее подготовленный каталог /burootimg
- ```mkdir /burootimg
+ ```
+ mkdir /burootimg
  mount -o loop /buroot/buroot.img /burootimg
  ```
 #### 12.Копируем содержимое образа в каталог /mnt/sysimage с сохранением прав
@@ -47,21 +49,22 @@
 #### 13. Перезагружаем машину. входим и видим, что том под / имеет размер 8Gb
 
 ## выделить том под /home
- ```lvcreate -L 1G -n lv_home /dev/VolGroup00
- 
+```
+lvcreate -L 1G -n lv_home /dev/VolGroup00
 mkfs.xfs /dev/VolGroup00/lv_home
 ```
 
 ## выделить том под /var
- ```lvcreate -L 1G -n lv_var /dev/VolGroup00
- 
+```
+lvcreate -L 1G -n lv_var /dev/VolGroup00
 mkfs.xfs /dev/VolGroup00/lv_var
 ```
 
 ## /var - сделать в mirror
 
 #### 1. Добавляем несколько новых разделов в lvm группу, предварительно разметив их через fdisk
- ```pvcreate /dev/sdc1 /dev/sdd1
+ ```
+ pvcreate /dev/sdc1 /dev/sdd1
  vgextend /dev/VolGroup00 /dev/sdc1 /dev/sdd1
  ```
 #### 2. Конвертируем lv_var в зеркало
@@ -73,14 +76,17 @@ mkfs.xfs /dev/VolGroup00/lv_var
 ## прописать монтирование в fstab
 #### 1.Копируем содержимое /home и /var в /dev/VolGroup00/lv_home и /dev/VolGroiup00/lv_var соответсвенно, с сохранением прав, предварительно примонтировав каждый lм раздел в /mnt
 #### 2.Прописываем точки монтирования в /etc/fstab
- ```/dev/VolGroup00-lv_home /home xfs defaults 0 0
+
+ ```
+ /dev/VolGroup00-lv_home /home xfs defaults 0 0
  /dev/VolGroup00-lv_var /var xfs defaults 0 0
  ```
 #### 3.Монтируем
  `mount -a`
 
 ## сгенерить файлы в /home/
- ```#!/bin/bash
+ ```
+ #!/bin/bash
 i=0
 while [ $i -lt 22 ]
 do
@@ -96,7 +102,8 @@ done
  `rm 0 1 5 7 9`
 
 ## восстановится из снэпшота
- ```umount /home
+ ```
+ umount /home
  lvconvert --merge /dev/Volgroup00/snap1_lv_home
  mount /dev/Volgroup00/lv_home /home
  ```
