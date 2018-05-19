@@ -101,7 +101,7 @@ done
 ## удалить часть файлов
  `rm 0 1 5 7 9`
 
-## восстановится из снэпшота
+## восстановиться из снэпшота
  ```
  umount /home
  lvconvert --merge /dev/Volgroup00/snap1_lv_home
