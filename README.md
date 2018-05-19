@@ -48,11 +48,13 @@
 
 ## выделить том под /home
  ```lvcreate -L 1G -n lv_home /dev/VolGroup00
+ 
 mkfs.xfs /dev/VolGroup00/lv_home
 ```
 
 ## выделить том под /var
  ```lvcreate -L 1G -n lv_var /dev/VolGroup00
+ 
 mkfs.xfs /dev/VolGroup00/lv_var
 ```
 
