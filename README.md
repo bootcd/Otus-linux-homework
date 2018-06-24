@@ -25,10 +25,17 @@ sudo yum install -y spawn-fcgi php php-cli mod_fcgid
 
 #### 3. Дополнить юнит-файл apache httpd возможностьб запустить несколько инстансов сервера с разными конфигами
 
-Создадим 2 разных конфига для апача: [/etc/httpd/conf/httpd-conf2.conf](https://github.com/bootcd/Otus-linux-homework/blob/SystemD-%D0%B8-SysV/3/httpd-conf2.conf) и [/etc/httpd/conf/httpd-conf3.conf](https://github.com/bootcd/Otus-linux-homework/blob/SystemD-%D0%B8-SysV/3/httpd-conf3.conf). В первом случае апач будет слушать на стандартном 80 порту, во втором на порту 9000
+Создадим 2 разных конфига для апача: [/etc/httpd/conf/httpd-conf2.conf](https://github.com/bootcd/Otus-linux-homework/blob/SystemD-%D0%B8-SysV/3/httpd-conf2.conf) и [/etc/httpd/conf/httpd-conf3.conf](https://github.com/bootcd/Otus-linux-homework/blob/SystemD-%D0%B8-SysV/3/httpd-conf3.conf). 
+
+В первом случае апач будет слушать на стандартном 80 порту, во втором на порту 9000.
+
 Для запуска нескольких инстансов будем использовать технологию шаблонов unit файлов.
+
 Создадим шаблон [httpd@.service](https://github.com/bootcd/Otus-linux-homework/blob/SystemD-%D0%B8-SysV/3/httpd%40.service)
+
 Создадим файлы окружения для каждого запускаемого инстанса [/etc/sysconfig/httpd-conf2](https://github.com/bootcd/Otus-linux-homework/blob/SystemD-%D0%B8-SysV/3/httpd-conf2.conf) и [/etc/sysconfig/httpd-conf3](https://github.com/bootcd/Otus-linux-homework/blob/SystemD-%D0%B8-SysV/3/httpd-conf3.conf)
+
 Создадим таргет юнит файл [httpd.target](https://github.com/bootcd/Otus-linux-homework/blob/SystemD-%D0%B8-SysV/3/httpd.target)
 Запускаем `service httpd.target start`
+
 через `ps ax | grep httpd` видим, что запущено одновременно 2 инстанса httpd с конфигами httpd-conf2.conf и httpd-conf3.conf
