@@ -1,0 +1,9 @@
+[Unit]
+Description=greper for log file
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/grepper
+EnvironmentFile=/etc/sysconfig/grepper.conf
+[Install]
+WantedBy=multi-user.target 
