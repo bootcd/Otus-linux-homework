@@ -3,7 +3,7 @@ Description=greper for log file
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/grepper
+ExecStart=/usr/bin/grepper.sh
 EnvironmentFile=/etc/sysconfig/grepper.conf
 [Install]
 WantedBy=multi-user.target 
