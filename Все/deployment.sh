@@ -11,5 +11,6 @@ cp grepper.sh /usr/bin
 cp httpd-conf2 httpd-conf3 grepper.conf /etc/sysconfig
 cp httpd-conf2.conf httpd-conf3.conf /etc/httpd/conf
 
-service grepper start
-service httpd.target start
+sudo service grepper start
+sudo service httpd.target start
+sudo service spawn-fsgi start
