@@ -12,3 +12,12 @@
 Результат работы скрипта - мониторинг в файле `/var/log/messages` слова `Started` пишется в файл `/var/log/greplog`
 
 #### 2. Из epel установить spawn-fcgi и переписать init-скрипт на unit-файл. Имя сервиса должно так же называться.
+
+Установим в систему репозиторий Epel и программу spaw-fcgi с компонентами, необходимыми для ее запуска
+```
+sudo yum install -y epel-release
+sudo yum install -y spawn-fcgi php php-cli mod_fcgid
+```
+Создадим unit файл [spawn-fsgi.service](https://github.com/bootcd/Otus-linux-homework/blob/SystemD-%D0%B8-SysV/2/spawn-fsgi.service)
+В файле `/etc/sysconfig/spawn-fcgi` раскомментируем строчки с параметрами SOCKET и OPTIONS.
+Запускаем `sudo service spawn-fsgi start`. Проверяем  `sudo service spawn-fsgi status` - сервис запущен.
