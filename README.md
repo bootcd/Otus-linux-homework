@@ -12,3 +12,6 @@
  Произведем запуск `service cpuconcurent.target start`
  
 Процесс `hiprior.service` запустился с наивысшим приоритетом, в свою очередь `lowprior.service` с наименьшим.
+
+
+В файле [cpuprior.log](https://github.com/bootcd/Otus-linux-homework/blob/Processes/cpuprior.log) видно, что процесс, запущенный с наивысшим приоритетом отрабатывает много чаще чем процесс с низшим.
