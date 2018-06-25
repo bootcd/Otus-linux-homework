@@ -1,0 +1,8 @@
+[Unit]
+Description= service with hi prior with cpu
+
+[Service]
+ExecStart=/usr/bin/nice -n -20 /concurents/hicpuprior.sh
+
+[Install]
+WantedBy=multi-user.target

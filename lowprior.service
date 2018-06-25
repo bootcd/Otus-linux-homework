@@ -1,0 +1,8 @@
+[Unit]
+Description= service with low  prior with cpu
+
+[Service]
+ExecStart=/usr/bin/nice -n 19 /concurents/lowcpuprior.sh
+
+[Install]
+WantedBy=multi-user.target
