@@ -6,7 +6,9 @@
 
 Нашел src.rpm пакет с нужной версией на http://ftp.redhat.com/
 
-Забираем пакет: `wget http://ftp.redhat.com/redhat/linux/enterprise/7Client/en/RHNTOOLS/SRPMS/cobbler-2.0.7-42.el7sat.src.rpm`
+Забираем пакет: 
+
+`wget http://ftp.redhat.com/redhat/linux/enterprise/7Client/en/RHNTOOLS/SRPMS/cobbler-2.0.7-42.el7sat.src.rpm`
 
 Подготавливаем окружение для сборки:
 
