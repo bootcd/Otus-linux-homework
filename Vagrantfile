@@ -6,7 +6,6 @@
 MACHINES = {
 :inetRouter => {
         :box_name => "centos/6",
-        #:public => {:ip => '10.10.10.1', :adapter => 1},
         :net => [
                    {ip: '192.168.255.1', adapter: 2, netmask: "255.255.255.252", virtualbox__intnet: "router-net"},
 				   {adapter: 3, auto_config: false, virtualbox__intnet: true},
@@ -98,7 +97,7 @@ Vagrant.configure("2") do |config|
 			ip route add 192.168.1.0/25 via 192.168.255.2
 			echo "BOOTPROTO=static\nONBOOT=yes\nTYPE=Bond\nBONDING_MASTER=yes\nIPADDR=192.168.255.1\nPREFIX=30\nDEVICE="bond0"\nBONDING_OPTS="mode=1 miimon=100"" > /etc/sysconfig/network-scripts/ifcfg-bond0
 			echo "BOOTPROTO=none\nONBOOT=yes\nDEVICE=eth1\nMASTER=bond0\nSLAVE=yes" > /etc/sysconfig/network-scripts/ifcfg-eth1
-			echo "BOOTPROTO=none\nONBOOT=yes\nDEVICE=eth1\nMASTER=bond0\nSLAVE=yes" > /etc/sysconfig/network-scripts/ifcfg-eth2
+			echo "BOOTPROTO=none\nONBOOT=yes\nDEVICE=eth2\nMASTER=bond0\nSLAVE=yes" > /etc/sysconfig/network-scripts/ifcfg-eth2
 			service network restart
 			sysctl net.ipv4.conf.all.forwarding=1
 			iptables -t nat -A POSTROUTING ! -d 192.168.0.0/16 -o eth0 -j MASQUERADE
@@ -113,7 +112,7 @@ Vagrant.configure("2") do |config|
             ip route add 192.168.1.0/24 via 192.168.230.2
 			echo "BOOTPROTO=static\nONBOOT=yes\nTYPE=Bond\nBONDING_MASTER=yes\nIPADDR=192.168.255.2\nPREFIX=30\nDEVICE="bond0"\nBONDING_OPTS="mode=1 miimon=100"" > /etc/sysconfig/network-scripts/ifcfg-bond0
 			echo "BOOTPROTO=none\nONBOOT=yes\nDEVICE=eth1\nMASTER=bond0\nSLAVE=yes" > /etc/sysconfig/network-scripts/ifcfg-eth1
-			echo "BOOTPROTO=none\nONBOOT=yes\nDEVICE=eth1\nMASTER=bond0\nSLAVE=yes" > /etc/sysconfig/network-scripts/ifcfg-eth6
+			echo "BOOTPROTO=none\nONBOOT=yes\nDEVICE=eth6\nMASTER=bond0\nSLAVE=yes" > /etc/sysconfig/network-scripts/ifcfg-eth6
 			echo "GATEWAY=192.168.255.1" >> /etc/sysconfig/network-scripts/ifcfg-bond0
 			service network restart
 			sysctl net.ipv4.conf.all.forwarding=1
