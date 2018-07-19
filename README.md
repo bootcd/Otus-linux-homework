@@ -7,7 +7,7 @@
 
 #### 2. Поднять RAS на базе OpenVPN с клиентскими сертификатами, подключиться с локальной машины на виртуалку
 
-1.Поднимаем 2 виртуалки и [сервер](https://github.com/bootcd/Otus-linux-homework/blob/VPN/1/server.conf) OpenVPN на одной из них, на другой [клиент](https://github.com/bootcd/Otus-linux-homework/blob/VPN/1/client.conf).
+1.Поднимаем 2 виртуалки OpenVPN [сервер](https://github.com/bootcd/Otus-linux-homework/blob/VPN/1/server.conf) на одной из них, на другой [клиент](https://github.com/bootcd/Otus-linux-homework/blob/VPN/1/client.conf).
 
 Тестируем в режиме tun:
 ```
