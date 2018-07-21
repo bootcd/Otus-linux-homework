@@ -56,7 +56,7 @@ TCP window size: 45.0 KByte (default)
 
 и centralServer как сервер httpd посредством [Vagrantfile](https://github.com/bootcd/Otus-linux-homework/blob/VPN/2/Vagrantfile)
 
-На хостовой машине устанавливаем OpenVPN и используя файлы [client.ovpn](https://github.com/bootcd/Otus-linux-homework/blob/VPN/2/client.ovpn) и ранее сгенерированные ключи и сертификаты ca.crt, client.crt и client.key, подключаемся к OpenVPN серверу через проброшенный порт. 
+На хостовой машине устанавливаем OpenVPN и используя файлы [client.ovpn](https://github.com/bootcd/Otus-linux-homework/blob/VPN/2/client.ovpn) и ранее сгенерированные ключи и сертификаты ca.crt, client.crt и client.key, подключаемся к OpenVPN серверу через проброшенный порт. `box.vm.network "forwarded_port", guest: 1194, host: 1195`
 
 Посредством дерективы `push "route 192.168.255.0 255.255.255.0"` мы сообщаем клиенту маршрут в подсеть за сервером, для предоставления доступа к внутренним сервисам локальной сети.
 
