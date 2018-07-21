@@ -7,7 +7,8 @@
 
 #### 2. Поднять RAS на базе OpenVPN с клиентскими сертификатами, подключиться с локальной машины на виртуалку
 
-1.Поднимаем 2 виртуалки OpenVPN [сервер](https://github.com/bootcd/Otus-linux-homework/blob/VPN/1/server.conf) на одной из них, на другой [клиент](https://github.com/bootcd/Otus-linux-homework/blob/VPN/1/client.conf).
+#### 1.
+Поднимаем 2 виртуалки OpenVPN [сервер](https://github.com/bootcd/Otus-linux-homework/blob/VPN/1/server.conf) на одной из них, на другой [клиент](https://github.com/bootcd/Otus-linux-homework/blob/VPN/1/client.conf).
 
 Тестируем в режиме tun:
 ```
@@ -47,3 +48,10 @@ TCP window size: 45.0 KByte (default)
 ```
 
 Видим, что в режиме tap все медленнее.
+
+#### 2.
+Поднимаем 2 виртуалки centralRouter с openVPN в качестве сервера [server.conf](https://github.com/bootcd/Otus-linux-homework/blob/VPN/2/server.conf) и centralServer как сервер httpd посредством [Vagrantfile](https://github.com/bootcd/Otus-linux-homework/blob/VPN/2/Vagrantfile)
+На хостовой машине устанавливаем OpenVPN и используя файлы client.conf и ранее сгенерированные ключи и сертификаты ca.crt, client.crt и client.key, подключаемся к OpenVPN серверу через проброшенный порт. После установки соединения, заходим браузером на адрес  192.168.255.10 и плучаем дефолтную страничку свежеустановленного httpd. Это гоовррит о том, что сервер OpenVPN позволяет нам получить доступ к внутренним ресурсам локальной сети за сервером, в частности к centralServer
+
+Так же для более удобного конфигурирования клиентов в файл конйигурации сервера можно внести дерективу `client-config-dir` с указанием пути к директории с файлами клиентской конфигурации, имена которых должны совпадать с `CommonName` в клиентском сертификате.
+В файле можно указать какой адрес выдавать клиенту или с помощью дерективы iroute указывать серверу маршрут в подсеть за клиентом.
