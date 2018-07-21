@@ -1,0 +1,85 @@
+# -*- mode: ruby -*-
+# vim: set ft=ruby :
+# -*- mode: ruby -*-
+# vim: set ft=ruby :
+
+MACHINES = {
+
+  :centralRouter => {
+        :box_name => "centos/7",
+        :net => [
+                   {ip: '192.168.255.2', adapter: 2, netmask: "255.255.255.0", virtualbox__intnet: "router-net"},
+
+                ]
+  },
+  
+  :centralServer => {
+        :box_name => "centos/7",
+        :net => [
+                   {ip: '192.168.255.10', adapter: 2, netmask: "255.255.255.0", virtualbox__intnet: "router-net"},
+                ]
+  },
+ 
+}
+Vagrant.configure("2") do |config|
+
+  MACHINES.each do |boxname, boxconfig|
+
+    config.vm.define boxname do |box|
+
+        box.vm.box = boxconfig[:box_name]
+        box.vm.host_name = boxname.to_s
+
+        boxconfig[:net].each do |ipconf|
+          box.vm.network "private_network", ipconf
+        end
+        
+        if boxconfig.key?(:public)
+          box.vm.network "public_network", boxconfig[:public]
+        end
+
+        box.vm.provision "shell", inline: <<-SHELL
+          mkdir -p ~root/.ssh
+                cp ~vagrant/.ssh/auth* ~root/.ssh
+        SHELL
+        
+        case boxname.to_s
+
+        when "centralRouter"
+
+		  box.vm.network "forwarded_port", guest: 1194, host: 1195
+          box.vm.provision "shell", run: "always", inline: <<-SHELL
+			sysctl net.ipv4.conf.all.forwarding=1
+			yum -y install epel-release 
+			yum -y install openvpn easy-rsa nano
+			cd /vagrant
+			cp server.conf /etc/openvpn/
+			sudo mkdir /etc/openvpn/keys
+			cp serverkeys/* /etc/openvpn/keys
+			setenforce 0
+			mkdir /var/log/openvpn
+			touch /var/log/openvpn/openvpn.log
+			touch /var/log/openvpn/openvpn-status.log
+			service openvpn@server start
+
+		  
+            SHELL
+        when "centralServer"
+          box.vm.provision "shell", run: "always", inline: <<-SHELL
+			yum -y install epel-release 
+			yum -y install openvpn httpd
+			echo "GATEWAY=192.168.255.2" >> /etc/sysconfig/network-scripts/ifcfg-eth1
+			echo "DEFROUTE=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0
+			service network restart
+			service httpd start
+            SHELL
+		
+        end
+
+      end
+
+  end
+  
+  
+end
+
