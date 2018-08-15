@@ -20,8 +20,9 @@
  В каталоге /etc/quagga/ на каждой машине редактируем файлы zebra.conf и ospfd.conf
  
  #### Router1
- 
- ip a
+
+ <details>
+ <summary>ip a</summary>
  
  ```
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
@@ -60,8 +61,11 @@
        valid_lft forever preferred_lft forever
  
  ```
+ </details>
  
- zebra.conf
+ <details>
+ <summary> zebra.conf</summary>
+
  ```
  ! -*- zebra -*-
 
@@ -88,8 +92,12 @@ interface eth3
 description LAN
 ip address 192.168.1.10/26
 ip forwarding
-``` 
-ospfd.conf
+```
+</details>
+
+<details>
+<summary>ospfd.conf</summary>
+ 
 ```
 ! -*- ospf -*-
 hostname Router1
@@ -106,6 +114,8 @@ neighbor 192.168.20.2
 log stdout
  
  ```
+ </details>
+ 
  #### Router2
  
  ip a
