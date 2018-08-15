@@ -25,6 +25,7 @@
  <summary>ip a</summary>
  
  ```
+ 
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -61,12 +62,15 @@
        valid_lft forever preferred_lft forever
  
  ```
+ 
  </details>
  
  <details>
  <summary> zebra.conf</summary>
 
+
  ```
+ 
  ! -*- zebra -*-
 
 hostname Router1
@@ -92,6 +96,7 @@ interface eth3
 description LAN
 ip address 192.168.1.10/26
 ip forwarding
+
 ```
 </details>
 
@@ -99,6 +104,7 @@ ip forwarding
 <summary>ospfd.conf</summary>
  
 ```
+
 ! -*- ospf -*-
 hostname Router1
 password zebra
@@ -118,8 +124,8 @@ log stdout
  
  #### Router2
  
- ip a
- 
+ <details>
+ <summary>ip a</summary>
  ```
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -155,13 +161,17 @@ log stdout
        valid_lft forever preferred_lft forever
     inet6 fe80::a00:27ff:fefb:ba0a/64 scope link
        valid_lft forever preferred_lft forever 
+ 
  ```
  
+ </details>
  
+  <details>
+ <summary>zebra.conf</summary>
  
- zebra.conf
- ```
- ! -*- zebra -*-
+  ```
+ 
+! -*- zebra -*-
 !
 ! zebra sample configuration file
 !
@@ -194,8 +204,14 @@ ip address 192.168.2.10/26
 ip forwarding
  
  ```
- ospfd.conf
+ 
+ </details>
+ 
+ <details>
+ <summary>ospfd.conf</summary>
+
  ```
+ 
  ! -*- ospf -*-
 
 hostname Router2
@@ -212,12 +228,13 @@ neighbor 192.168.30.2
 log stdout
  
  ```
+ </details>
  
  #### Router3
+ <details>
+ <summary>ip a</summary>
  
- ip a
- 
- ```
+  ```
  1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -252,12 +269,13 @@ log stdout
        valid_lft forever preferred_lft forever
     inet6 fe80::a00:27ff:fec8:b458/64 scope link
        valid_lft forever preferred_lft forever
- 
+       
  ```
- 
- 
- 
- zebra.conf
+</details> 
+
+<details>
+ <summary>zebra.conf</summary>
+
  ```
  ! -*- zebra -*-
 !
@@ -290,8 +308,13 @@ interface eth3
 description LAN
 ip address 192.168.3.10/26
 ip forwarding
+
 ```
-ospfd.conf
+</details>
+
+<details>
+<summary>ospf.conf</summary>
+
 ```
  ! -*- ospf -*-
 
@@ -309,7 +332,8 @@ neighbor 192.168.30.1
 log stdout
  
  ```
- 
+</details> 
+
  Для проверки работы роутинга поднимем еще по 1 ВМ за каждым из роутеров в area1, area2, area3.
  
  Проверим работоспособность роутинга утилитой `tracepath`
