@@ -13,9 +13,8 @@
 - вывод tracepath для каждого из трёх случаев
 
 #### - Поднять три виртуалки
- Используем подготовленный [VagrantFile](), поднимаем Router1, Router2 и Router3
- 
- Объединяем их ВЛАНами как показано на рисунке: ![](https://github.com/bootcd/Otus-linux-homework/blob/OSPF/%D1%81%D1%85%D0%B5%D0%BC%D0%B01.jpg)
+ Используем подготовленный [VagrantFile](https://github.com/bootcd/Otus-linux-homework/blob/OSPF/1/Vagrantfile), поднимаем Router1, Router2 и Router3 с ВЛАНАМИ как на рисунке.
+![](https://github.com/bootcd/Otus-linux-homework/blob/OSPF/%D1%81%D1%85%D0%B5%D0%BC%D0%B01.jpg)
  
  #### Поднять OSPF между машинами на базе Quagga
  В каталоге /etc/quagga/ на каждой машине редактируем файлы zebra.conf и ospfd.conf
