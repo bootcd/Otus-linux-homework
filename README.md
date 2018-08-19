@@ -108,10 +108,12 @@ Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
 
 3) запустить nginx на centralServer
 
+```
 yum -y install epel-release
 yum -y install nginx
 service nginx start
 
+```
 
 4) пробросить 80й порт на inetRouter2 8080
 
