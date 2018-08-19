@@ -9,6 +9,57 @@
 4) пробросить 80й порт на inetRouter2 8080
 5) дефолт в инет оставить через inetRouter
 
+#### 1)реализовать knocking port
+
+Можно
+
+Реализуем конфигурацию из примера в материалах к занятию.
+
+Создаем на inetRouter файл knocking_port.rules следующего содержания:
+
+```
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+:TRAFFIC - [0:0]
+:SSH-INPUT - [0:0]
+:SSH-INPUTTWO - [0:0]
+# TRAFFIC chain for Port Knocking. The correct port sequence in this example is  8881 -> 7777 -> 9991; any other sequence will drop the traffic 
+-A INPUT -j TRAFFIC
+-A TRAFFIC -p icmp --icmp-type any -j ACCEPT
+-A TRAFFIC -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A TRAFFIC -m state --state NEW -m tcp -p tcp --dport 22 -m recent --rcheck --seconds 30 --name SSH2 -j ACCEPT
+-A TRAFFIC -m state --state NEW -m tcp -p tcp -m recent --name SSH2 --remove -j DROP
+-A TRAFFIC -m state --state NEW -m tcp -p tcp --dport 9991 -m recent --rcheck --name SSH1 -j SSH-INPUTTWO
+-A TRAFFIC -m state --state NEW -m tcp -p tcp -m recent --name SSH1 --remove -j DROP
+-A TRAFFIC -m state --state NEW -m tcp -p tcp --dport 7777 -m recent --rcheck --name SSH0 -j SSH-INPUT
+-A TRAFFIC -m state --state NEW -m tcp -p tcp -m recent --name SSH0 --remove -j DROP
+-A TRAFFIC -m state --state NEW -m tcp -p tcp --dport 8881 -m recent --name SSH0 --set -j DROP
+-A SSH-INPUT -m recent --name SSH1 --set -j DROP
+-A SSH-INPUTTWO -m recent --name SSH2 --set -j DROP 
+-A TRAFFIC -j DROP
+COMMIT
+
+```
+
+На centralRouter создаем кнок-скрипт knock.sh:
+
+```
+#!/bin/bash
+HOST=$1
+shift
+for ARG in "$@"
+do
+        nmap -Pn --host_timeout 100 --max-retries 0 -p $ARG $HOST
+done
+
+```
+
+На centralRouter запускаем скрипт `./knock.sh host 8881 7777 9991`
+Теперь можем попробовать зайти на inetRouter через команду ssh 192.168.2551 -l vagrant 
+
+
 #### 2-5)
 
 Для проверки задания необходимо развернуть инфраструктуру на основе этого [Vagrantfile](https://github.com/bootcd/Otus-linux-homework/blob/Filtering/2-5/Vagrantfile) и перейти с хостовой машины по адресу http://127.0.0.1:8080
