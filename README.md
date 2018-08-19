@@ -57,7 +57,41 @@ done
 ```
 
 На centralRouter запускаем скрипт `./knock.sh host 8881 7777 9991`
+
+Получаем такой вывод:
+
+```
+./knock_script.sh 192.168.255.1 8881 7777 999       1
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2018-08-19 17:22 UTC
+Nmap scan report for 192.168.255.1
+Host is up (0.0026s latency).
+PORT     STATE  SERVICE
+8881/tcp closed unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2018-08-19 17:22 UTC
+Nmap scan report for 192.168.255.1
+Host is up (0.0019s latency).
+PORT     STATE  SERVICE
+7777/tcp closed cbt
+
+Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2018-08-19 17:22 UTC
+Nmap scan report for 192.168.255.1
+Host is up (0.00031s latency).
+PORT     STATE  SERVICE
+9991/tcp closed issa
+
+Nmap done: 1 IP address (1 host up) scanned in 0.06 seconds
+
+```
+
 Теперь можем попробовать зайти на inetRouter через команду ssh 192.168.255.1 -l vagrant 
+
+
 
 
 #### 2-5)
