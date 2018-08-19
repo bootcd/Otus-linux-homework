@@ -43,7 +43,7 @@ COMMIT
 
 ```
 
-На centralRouter создаем кнок-скрипт knock.sh:
+На centralRouter создаем кнок-скрипт knock_script.sh:
 
 ```
 #!/bin/bash
@@ -56,7 +56,7 @@ done
 
 ```
 
-На centralRouter запускаем скрипт `./knock.sh host 8881 7777 9991`
+На centralRouter запускаем скрипт `./knock_script.sh host 8881 7777 9991`
 
 Получаем такой вывод:
 
