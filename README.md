@@ -11,7 +11,7 @@
 
 #### 1)реализовать knocking port
 
-Для проверки задания необходимо скоипровать файлы из папки [1](https://github.com/bootcd/Otus-linux-homework/tree/Filtering/1) бранча. 
+Для проверки задания необходимо скоипровать файлы из папки [1](https://github.com/bootcd/Otus-linux-homework/tree/Filtering/1) бранча и использовать [Vagrantfile](https://github.com/bootcd/Otus-linux-homework/blob/Filtering/1/Vagrantfile) для поднятия инфраструктуры.
 
 Реализуем конфигурацию из примера в материалах к занятию.
 
