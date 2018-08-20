@@ -1,0 +1,21 @@
+---
+- hosts: webservers
+
+  tasks:
+    - name: install epel
+      yum: name=epel-release state=installed 
+
+    - name: install nginx
+      yum: name=nginx state=installed
+
+    - name: run nginx
+      command: sudo service nginx restart	
+      become: yes
+- hosts: inetRouter2
+
+  tasks:
+    - name: Dnat to nginx
+      iptables: table=nat chain=PREROUTING in_interface=eth0 protocol=tcp match=tcp destination_port=8080 jump=DNAT to_destination=192.168.0.2:80
+   
+    - name: masquerade
+      iptables: table=nat chain=POSTROUTING jump=MASQUERADE

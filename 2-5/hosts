@@ -1,0 +1,4 @@
+inetRouter2 ansible_ssh_host=192.168.255.10
+
+[webservers]
+192.168.0.2
