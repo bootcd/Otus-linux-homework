@@ -1,0 +1,37 @@
+---
+- hosts: all
+  gather_facts: true
+  vars_files:
+    - vars.yml
+
+- hosts: centralRouter
+  tasks:
+
+    - name: install nmap
+      yum: name=nmap state=installed
+
+    - name: copying knock-script to centralServer
+      copy:
+        src: knock_script.sh
+        dest: /home/vagrant/knock_script.sh
+        owner: vagrant
+        group: vagrant
+        mode: 0744
+
+- hosts: inetRouter
+  tasks:
+
+    - name: install selinuxlib-py
+      yum: name=libselinux-python state=installed
+
+    - name: copying iptables rules to inetRouter
+      copy: 
+        src: kp.rules
+        dest: /home/vagrant/
+        owner: vagrant
+        group: vagrant
+        mode: 644
+    
+    - name: restore iptables rules from kp.rules file
+      shell: |
+        iptables-restore < /home/vagrant/kp.rules
