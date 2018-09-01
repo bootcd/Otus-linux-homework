@@ -83,8 +83,12 @@ udp        0      0 0.0.0.0:37075           0.0.0.0:*
 ```
 Видим, что служба поднялась.
 
-3. На клоиенте создаим каталог `/mnt/shared`
-и добавим в /etc/fstab строчку `192.168.255.1:/share /mnt/shared nfs  proto=udp,intr,noatime,nolock,nfsvers=3,async 0 0`
+3. На клиенте создаим каталог `/mnt/shared`
+
+и добавим в `/etc/fstab` строчку
+
+`192.168.255.1:/share /mnt/shared nfs  proto=udp,intr,noatime,nolock,nfsvers=3,async 0 0`
 
 после выполнения команды `mount -a`, видим, что шара примонтировалась:
+
 `192.168.255.1:/share on /mnt/shared type nfs`
