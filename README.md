@@ -9,7 +9,7 @@ vagrant up должен поднимать 2 виртуалки: сервер и
 - требования дл NFS: NFSv3 по UDP, включенный firewall
 
 ## NFS
-Для проверки задания необходимо поднять инфраструктуру с помощью [Vagrantfile](https://github.com/bootcd/Otus-linux-homework/blob/nfs/Vagrantfile), зайти на машину nfsClient и выполнить команду `mount`, убедиться, что nfs шара присутсвует в списке примонтированых объектов:
+Для проверки задания необходимо склонировать бранч и поднять инфраструктуру с помощью [Vagrantfile](https://github.com/bootcd/Otus-linux-homework/blob/nfs/Vagrantfile), зайти на машину nfsClient и выполнить команду `mount`, убедиться, что nfs шара присутсвует в списке примонтированых объектов:
 ```
 192.168.255.1:/share on /mnt/shared type nfs
 ```
