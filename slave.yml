@@ -1,0 +1,52 @@
+---
+- hosts: postgresslave
+
+  vars:
+    pathversion:
+      nine: '9.6'
+      ten: '10'
+    version: 'nine'
+    replicantpasswd: '100500'
+    listen_addresses: "'192.168.255.3'"
+    max_connections: 100
+
+
+#!!!!!!!!!!!!!!!!
+#
+# uncomment needful version for Postgresql 9.6 or fo Postgresql 10
+#
+   #version: 'nine'		# for 9.6
+    version: 'ten'		# ror 10
+ 
+
+
+
+  tasks:
+
+    - name: stop postgresql service
+      become: yes
+      command: service postgresql-{{pathversion[version]}} stop
+
+    - name: preparing the slave pt.1 (clean the slave data directory)
+      become: yes
+      become_user: postgres
+      file: path=/var/lib/pgsql/{{pathversion[version]}}/data/ state=absent
+
+    - name: preparing the slave pt.2 (pg_backup)
+      become: yes
+      become_user: postgres
+      shell: export PGPASSWORD="{{ replicantpasswd }}" && pg_basebackup -h 192.168.255.2 -U replicant -D /var/lib/pgsql/{{pathversion[version]}}/data -R -P -v
+ 
+    - name: configure postgresql.conf pt.1 (listen_addresses)
+      template: src=postgresql.conf.j2 dest=/var/lib/pgsql/{{pathversion[version]}}/data/postgresql.conf
+      register: pgconf
+      
+    - name: configure postgresql.conf pt.2 (hot_standby=on)  
+      blockinfile:
+        dest: /var/lib/pgsql/{{pathversion[version]}}/data/postgresql.conf
+        block: |
+          hot_standby = on
+
+    - name: start postgresql service
+      service: name=postgresql-{{pathversion[version]}} state=restarted
+

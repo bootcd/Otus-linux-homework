@@ -1,0 +1,118 @@
+---
+- hosts: postgresnodes
+
+  vars:
+
+    repoversion:
+      nine: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+      ten: https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+
+    serverversion:
+      nine: 96
+      ten: 10
+
+    pathversion:
+      nine: '9.6'
+      ten: '10'
+
+
+#!!!!!!!!!!!!!!!!
+#
+# uncomment needful version for Postgresql 9.6 or fo Postgresql 10
+#
+
+
+
+   #version: 'nine'	# for 9.6
+    version: 'ten'	# for 10
+
+  tasks:
+    - name: installepelrepo
+      yum: name=epel-release state=installed
+
+    - name: install python-psycopg2
+      yum: name=python-psycopg2 state=installed
+      
+    - name: install postgres-repo
+      yum: name={{repoversion[version]}} state=installed
+
+    - name: install postgres-server
+      yum: name=postgresql{{serverversion[version]}}-server state=installed
+  
+    - name: initialize db vers. 10
+      command: /usr/pgsql-10/bin/postgresql-10-setup initdb
+      when:
+        - version == 'ten'         
+   
+    - name: start postgresql vers.10 server
+      command:  systemctl start postgresql-10
+      when:
+        - version == 'ten'
+
+      command: systemctl start postgresql-10
+      when:
+        - version == 'ten'
+
+#    - name: initialize db vers.9.6
+#      command: /usr/pgsql-9.6/bin/postgresql96-setup initdb
+#      when:
+#        - version == 'nine'
+
+ 
+    - name: start postgresql vers.9 server
+      service: name=postgresql-{{pathversion[version]}} state=restarted 
+
+- hosts: postgresmaster
+
+  vars:
+    pathversion:
+      nine: '9.6'
+      ten: '10'
+    max_connections: 100 
+    listen_addresses: "'192.168.255.2'"
+
+#!!!!!!!!!!!!!!!!
+#
+# uncomment needful version for Postgresql 9.6 or fo Postgresql 10
+#
+
+   #version: 'nine'	#for 9.6
+    version: 'ten'      #for 10
+
+  tasks:
+    - name: configure pga_hba.conf
+      blockinfile:
+        dest: /var/lib/pgsql/{{pathversion[version]}}/data/pg_hba.conf
+        block: |
+          host	all	postgres	192.168.255.0/26 md5
+          host replication	replicant		192.168.255.0/26 md5
+   
+    - name: configure firewall 
+      firewalld: port=5432/tcp permanent=true state=enabled
+
+    - name: configure postgresql.conf pt.1
+      template: src=postgresql.conf.j2 dest=/var/lib/pgsql/{{pathversion[version]}}/data/postgresql.conf
+      register: pgconf
+
+    - name: configure postgresql.conf pt.2
+      blockinfile:
+        dest: /var/lib/pgsql/{{pathversion[version]}}/data/postgresql.conf
+        block: |   
+          wal_level = replica
+          max_wal_senders = 2
+          wal_keep_segments = 128
+          autovacuum = on
+          fsync = on
+
+    - name: create replicant user
+      become: yes
+      become_user: postgres
+      postgresql_user:
+        db: postgres
+        name: replicant
+        password: '100500'
+        encrypted: yes
+        role_attr_flags: LOGIN,REPLICATION 
+
+    - name: restart postgresql service
+      service: name=postgresql-{{pathversion[version]}} state=restarted

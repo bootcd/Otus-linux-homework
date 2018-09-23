@@ -1,0 +1,9 @@
+[postgresnodes]
+192.168.255.2
+192.168.255.3
+
+[postgresmaster]
+192.168.255.2
+
+[postgresslave]
+192.168.255.3
