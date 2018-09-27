@@ -21,7 +21,7 @@ ansible-playbook -c paramiko -i hosts postgres.yml --ask-pass --sudo
 
 - установка postgresql сервера на машины `postgresServer` (основной сервер) и `postgresReplic` (сервер для реплики)
 - инициализация кластера
-- для мастер-сервера откроется порт tcp 5234, с помощью темплейта [postgresql.conf.j2](https://github.com/bootcd/Otus-linux-homework/blob/postgresql/postgresql.conf.j2) приментися необходимая конфигурация. Далее установятся нужные значения параметров конфигурационного файла, создастся пользователь `replicant`. Для совместимости с версией 10, добавлен параметр `encrypted: yes`.
+- для мастер-сервера откроется порт tcp 5234, с помощью темплейта [postgresql.conf.j2](https://github.com/bootcd/Otus-linux-homework/blob/postgresql/postgresql.conf.j2) приментся необходимая конфигурация. Далее установятся нужные значения параметров конфигурационного файла, создастся пользователь `replicant`. Для совместимости с версией 10, добавлен параметр `encrypted: yes`.
 - произойдет рестарт сервера.
 
 #### ПРИМЕЧАНИЕ
