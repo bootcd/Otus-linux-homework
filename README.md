@@ -11,7 +11,8 @@
 Для проверки ДЗ необходимо:
 1. Cклонить файлы из бранча
 2. Построить виртуальную среду с помощью [Vagrantfile](https://github.com/bootcd/Otus-linux-homework/blob/postgresql/Vagrantfile)
-3. На машине ansibleServer выполнить команду:
+3. Скопировать файлы hosts, postgres.yml, postgresql.conf.j2, slave.yml в любой удобный каталог и из него выполнить команду:
+
 ```
 ansible-playbook -c paramiko -i hosts postgres.yml --ask-pass --sudo
 
