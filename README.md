@@ -16,7 +16,9 @@
 list jobs
 list files jobid=<idfullbackup>
 и настроенный конфиг
-	
+
+### Результаты:
+
 #### list files jobid=<169>
 ![list files jobid=<169>](https://github.com/bootcd/Otus-linux-homework/blob/bacula/listfiles_full.jpg)
   
