@@ -11,6 +11,8 @@
 list jobs
 list files jobid=<idfullbackup>
 и настроенный конфиг
+	
+![list files jobid=<169>]()
   
   
 
