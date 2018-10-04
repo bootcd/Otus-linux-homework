@@ -13,8 +13,10 @@
 
 для сдачи ДЗ приложить
 
-list jobs
+list job
+s
 list files jobid=<idfullbackup>
+	
 и настроенный конфиг
 
 ### Результаты:
