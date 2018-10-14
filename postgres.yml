@@ -53,10 +53,10 @@
       when:
         - version == 'ten'
 
-#    - name: initialize db vers.9.6
-#      command: /usr/pgsql-9.6/bin/postgresql96-setup initdb
-#      when:
-#        - version == 'nine'
+    - name: initialize db vers.9.6
+      command: /usr/pgsql-9.6/bin/postgresql96-setup initdb
+      when:
+        - version == 'nine'
 
  
     - name: start postgresql vers.9 server
