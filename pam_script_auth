@@ -1,0 +1,28 @@
+#!/bin/bash
+declare -a holydays
+holidays=(23.02 8.03 9.05 4.11 31.12)
+string=$(getent group admin | cut -d: -f4)
+IFS=',' read -r -a array <<< "$string"
+for user in ${array[@]}
+do
+	if [[ "$PAM_USER" =  "$user" ]]; then
+		echo $PAM_USER
+		exit 0
+fi
+done
+	
+for holiday in ${holidays[@]}
+do
+if [[ $(date +%d.%m) = "$holiday" ]]; then
+echo "Holidays now! Dont work! Have a fun!"
+
+exit 1
+
+elif
+[[ $(date +%u) > 5 ]];
+then
+exit 1
+else
+exit 0
+fi
+done
