@@ -85,3 +85,13 @@ CHANGE MASTER TO MASTER_HOST = "192.168.1.244 ", MASTER_USER = "repl", MASTER_PA
 
 16. Смотрим статус слейва:
 ![](https://github.com/bootcd/Otus-linux-homework/blob/mysql/slavestatus.jpg)
+
+Видим, что сервер-реплика, понимает какие таблицы не надо реплицировать.
+
+## ПРОВЕРКА РЕПЛИКАЦИИ
+
+Добавим в таблицу bookmakers нового букмекера: `ultrabet!`
+![](https://github.com/bootcd/Otus-linux-homework/blob/mysql/replication.jpg)
+
+
+17.
