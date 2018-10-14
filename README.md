@@ -37,7 +37,7 @@ mysql -u root -p bet_odds < bet.dmp
 ```
 7. После того как дамп развернется начинаем править конфиги для создания репликации.
 
-В файле etc/mysql/my.cnf в секции `[mysqld]` добавим:
+В файле [etc/mysql/my.cnf](https://github.com/bootcd/Otus-linux-homework/blob/mysql/master/my.cnf) в секции `[mysqld]` добавим:
 ```
 server-id = 1
 log_bin = /var/lib/mysql/mysql-bin.log  # место хранения бинлога
@@ -65,7 +65,7 @@ mysqldump -u root -p bet_odds > bet_master.dmp
 
 12. Переносим дамп на сервер-реплику и там его разворачиваем в базу `bet_odds`
 
-12. Вносим правки в конфигурационный файл `/etc/mysql/my.cnf` в секции `[mysql]`
+12. Вносим правки в конфигурационный файл [/etc/mysql/my.cnf](https://github.com/bootcd/Otus-linux-homework/blob/mysql/slave/my.cnf) в секции `[mysql]`
 ```
 server-id = 2
 binlog_do_db = bet_odds
