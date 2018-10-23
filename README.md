@@ -34,7 +34,7 @@
 ```
 
 Видим, что кука заходит в браузер:
-1[](https://github.com/bootcd/Otus-linux-homework/blob/web/3.jpg)
+![](https://github.com/bootcd/Otus-linux-homework/blob/web/3.jpg)
 
 
 На скриншотах ![1](https://github.com/bootcd/Otus-linux-homework/blob/web/1.JPG) и ![2](https://github.com/bootcd/Otus-linux-homework/blob/web/2.JPG) сессии telnet видно, что при запросе страницы `/` без куки, происходит перенаправление на локейшен `/cookieset.html`, где передается заголовок `Set-Cookie` c параметром `myid=100500`.
