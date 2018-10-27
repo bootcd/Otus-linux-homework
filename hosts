@@ -1,0 +1,18 @@
+inetrouter ansible_ssh_host=192.168.255.1
+centralrouter ansible_ssh_host=192.168.255.2
+centralserver ansible_ssh_host=192.168.0.2
+office1router ansible_ssh_host=192.168.240.2
+office2router ansible_ssh_host=192.168.230.2
+
+
+[ipaserver]
+ipaserver ansible_ssh_host=192.168.255.5
+
+
+[ipaclients]
+inetrouter ansible_ssh_host=192.168.255.1
+centralrouter ansible_ssh_host=192.168.255.2
+centralserver ansible_ssh_host=192.168.0.2
+office1router ansible_ssh_host=192.168.240.2
+office2router ansible_ssh_host=192.168.230.2
+
