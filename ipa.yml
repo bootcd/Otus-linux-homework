@@ -15,9 +15,9 @@
     yum: name=ipa-server-dns state=installed
 
 
-#  - name: install IPA server
-#    ignore_errors: True
-#    shell: ipa-server-install -U --mkhomedir --hostname=ipaserver.bootcd.local --domain=bootcd.local  --realm=bootcd.local --ds-password=100500600 --admin-password=100500600 --setup-dns --no-reverse --no-forwarders
+   - name: install IPA server
+     ignore_errors: True
+     shell: ipa-server-install -U --mkhomedir --hostname=ipaserver.bootcd.local --domain=bootcd.local  --realm=bootcd.local --ds-password=100500600 --admin-password=100500600 --setup-dns --no-reverse --no-forwarders
     
 - hosts: inetrouter
   become: yes
