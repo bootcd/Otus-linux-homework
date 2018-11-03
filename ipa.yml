@@ -1,0 +1,71 @@
+---
+- hosts: ipaserver
+  become: yes
+  tasks:
+  - name: set hostname
+    hostname: name=ipaserver.bootcd.local
+
+  - name: install epel-release
+    yum: name=epel-release state=installed
+     
+  - name: install freeIPA package
+    yum: name=ipa-server state=installed      
+
+  - name: install ipa server dns package
+    yum: name=ipa-server-dns state=installed
+
+
+  - name: install IPA server
+    ignore_errors: True
+    shell: ipa-server-install -U --mkhomedir --hostname=ipaserver.bootcd.local --domain=bootcd.local  --realm=bootcd.local --ds-password=100500600 --admin-password=100500600 --setup-dns --no-reverse --no-forwarders
+    
+- hosts: inetrouter
+  become: yes
+  tasks:
+  - name: set hostname
+    hostname: name=inetrouter.bootcd.local
+
+- hosts: centralserver
+  become: yes
+  tasks:
+  - name: set hostname
+    hostname: name=centralserver.bootcd.local
+
+
+
+- hosts: centralrouter
+  become: yes
+  tasks:
+  - name: set hostname
+    hostname: name=centralrouter.bootcd.local  
+
+- hosts: office1router
+  become: yes
+  tasks:
+  - name: set hostname
+    hostname: name=office1router.bootcd.local
+
+- hosts: office2router
+  become: yes
+  tasks:
+  - name: set hostname
+    hostname: name=office2router.bootcd.local
+
+
+- hosts: ipaclients
+  become: yes
+  tasks:
+  - name: rewrite /etc/hosts file
+    copy:
+      src: hostsnames/hosts
+      dest: /etc/
+
+  - name: install epel release
+    yum: name=epel-release state=installed
+
+  - name: install freeipa client package
+    yum: name=ipa-client state=installed
+  
+  - name: install and configure ipa client
+    shell: ipa-client-install -U --mkhomedir --no-ntp --force --domain=bootcd.local --server=ipaserver.bootcd.local --realm=BOOTCD.LOCAL --principal=admin --password=100500600
+    ignore_errors: True
